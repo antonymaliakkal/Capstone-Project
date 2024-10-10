@@ -1,8 +1,7 @@
 package com.ust.wastewarden.truck.controller;
 
-import com.ust.wastewarden.truck.model.Truck;
+import com.ust.wastewarden.truck.model.*;
 import com.ust.wastewarden.truck.service.TruckService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/trucks")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TruckController {
 
     private final TruckService truckService;
@@ -44,6 +44,12 @@ public class TruckController {
         return ResponseEntity.ok(savedTruck);
     }
 
+    @PostMapping("/saveall")
+    public ResponseEntity<List<Truck>> saveTrucks(@RequestBody List<Truck> trucks) {
+        List<Truck> savedTrucks = truckService.saveAllTrucks(trucks);
+        return ResponseEntity.ok(savedTrucks);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Truck> updateTruck(@PathVariable Long id, @RequestBody Truck truck) {
         truck.setId(id);
@@ -60,4 +66,74 @@ public class TruckController {
         truckService.deleteTruck(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/assign-route")
+    public void assignRouteToTruck(@RequestBody RouteResponse routeResponse) {
+        truckService.assignRoute(routeResponse);
+    }
+
+    public void updateTruckStatus(@RequestBody TruckStatusUpdateRequest statusUpdateRequest) {
+        truckService.updateTruckStatus(statusUpdateRequest);
+    }
+
+//    @GetMapping("/{truckId}/routes")
+//    public Route getTruckRoutes(@PathVariable Long truckId) {
+//        return truckService.getTruckRouteByTruckId(truckId);
+//    }
+
+    // Endpoint to get truck route
+    @GetMapping("/{truckId}/route1")
+    public ResponseEntity<TruckRouteResponse> getTruckRoute(@PathVariable Long truckId) {
+        Truck truck = truckService.getTruckById(truckId);
+
+        if (truck != null && truck.getAssignedRoute() != null) {
+            TruckRouteResponse truckRouteResponse = truckService.getTruckRoute(truck);
+            return ResponseEntity.ok(truckRouteResponse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Endpoint to get truck route data for plotting on the map
+    @GetMapping("/{id}/route2")
+    public ResponseEntity<RouteResponse> getTruckRouteData(@PathVariable Long id) {
+        RouteResponse routeResponse = truckService.getTruckRouteData(id);
+        return ResponseEntity.ok(routeResponse);
+    }
+
+    // Endpoint to get start and end coordinates of all trucks
+    @GetMapping("/coordinates")
+    public ResponseEntity<List<TruckCoordinatesResponse>> getAllTrucksCoordinates() {
+        List<TruckCoordinatesResponse> truckCoordinates = truckService.getAllTrucksCoordinates();
+        return ResponseEntity.ok(truckCoordinates);
+    }
+
+    // Endpoint to get start and end coordinates of a specific truck by ID
+    @GetMapping("/{id}/coordinates")
+    public ResponseEntity<TruckCoordinatesResponse> getTruckCoordinates(@PathVariable Long id) {
+        TruckCoordinatesResponse truckCoordinates = truckService.getTruckCoordinates(id);
+        return ResponseEntity.ok(truckCoordinates);
+    }
+
+
+    // Endpoint to get all trucks with assigned jobs
+    @GetMapping("/with-jobs")
+    public ResponseEntity<List<TruckWithJobsResponse>> getAllTrucksWithJobs() {
+        List<TruckWithJobsResponse> trucksWithJobs = truckService.getAllTrucksWithJobs();
+        return ResponseEntity.ok(trucksWithJobs);
+    }
+
+    // Endpoint to get a specific truck with assigned jobs
+    @GetMapping("/{id}/with-jobs")
+    public ResponseEntity<TruckWithJobsResponse> getTruckWithJobs(@PathVariable Long id) {
+        TruckWithJobsResponse truckWithJobs = truckService.getTruckWithJobs(id);
+        return ResponseEntity.ok(truckWithJobs);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Truck> getUser(@PathVariable Long id){
+        System.out.println("Trucks get by id");
+        return ResponseEntity.ok(truckService.findUser(id));
+    }
+
 }

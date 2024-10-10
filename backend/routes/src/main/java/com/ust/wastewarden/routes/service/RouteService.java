@@ -2,19 +2,27 @@ package com.ust.wastewarden.routes.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ust.wastewarden.routes.model.Route;
-import com.ust.wastewarden.routes.model.RouteData;
-import com.ust.wastewarden.routes.model.RouteStatus;
+//import com.ust.wastewarden.routes.feignClients.NotificationFeignClient;
+import com.ust.wastewarden.routes.feignClients.TruckFeignClient;
+import com.ust.wastewarden.routes.model.*;
 import com.ust.wastewarden.routes.repository.RouteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RouteService {
 
+    private final TruckFeignClient truckFeignClient;
+//    private final NotificationFeignClient notificationFeignClient;
+    private final RoutePlannerService routePlannerService;
     private final RouteRepository routeRepository;
-    public RouteService(RouteRepository routeRepository) {
+    public RouteService(TruckFeignClient truckFeignClient, RoutePlannerService routePlannerService, RouteRepository routeRepository) {
+        this.truckFeignClient = truckFeignClient;
+//        this.notificationFeignClient = notificationFeignClient;
+        this.routePlannerService = routePlannerService;
         this.routeRepository = routeRepository;
     }
 
@@ -54,6 +62,89 @@ public class RouteService {
 //        route.setTruckID(truckId);
 //        return routeRepository.save(route);
 //    }
+
+
+    public List<Truck> truckLatLongUlta(List<Truck> trucks){
+        List<Truck> modTrucks = new ArrayList<>();
+        for(Truck truck : trucks) {
+            double slat = truck.getStartLatitude();
+            double slong = truck.getStartLongitude();
+            double elat = truck.getEndLatitude();
+            double elong = truck.getEndLongitude();
+            truck.setStartLatitude(slong);
+            truck.setStartLongitude(slat);
+            truck.setEndLatitude(elong);
+            truck.setEndLongitude(elat);
+            modTrucks.add(truck);
+        }
+        return modTrucks;
+    }
+    public List<Bin> binsLatLongUlta(List<Bin> bins){
+        List<Bin> modBins = new ArrayList<>();
+        for(Bin bin : bins) {
+            double lat = bin.getLatitude();
+            double lon = bin.getLongitude();
+            bin.setLatitude(lon);
+            bin.setLongitude(lat);
+            modBins.add(bin);
+        }
+        return modBins;
+    }
+
+    // Assign routes based on bins (jobs) and available trucks (agents)
+    public RouteResponse assignRoutes(List<Bin> bins) throws Exception {
+        // Step 1: Fetch available trucks
+        System.out.println("HIIIIIII");
+        List<Truck> trucks = truckFeignClient.getAvailableTrucks();
+        System.out.println(trucks);
+        trucks.forEach(t -> System.out.println(t.getStartLatitude()));
+
+        trucks = truckLatLongUlta(trucks);
+        bins = binsLatLongUlta(bins);
+
+        // Step 2: Build the route request using bins and trucks
+        RouteRequest routeRequest = buildRouteRequest(bins, trucks);
+
+        // Step 3: Call the RoutePlannerService for optimized routes
+        RouteResponse optimizedRoute = routePlannerService.getOptimizedRoute(routeRequest);
+        System.out.println(optimizedRoute);
+        // Step 4: Send the optimized routes to the Truck Microservice
+        truckFeignClient.assignRouteToTruck(optimizedRoute);
+
+        return optimizedRoute;
+
+        // Step 5: Notify the trucks via Notification Microservice
+//        notificationFeignClient.notifyTrucks(optimizedRoute);
+    }
+
+    // Build the RouteRequest based on the bins and trucks data
+    private RouteRequest buildRouteRequest(List<Bin> bins, List<Truck> trucks) {
+        RouteRequest routeRequest = new RouteRequest();
+        routeRequest.setMode("truck");
+
+        // Prepare the agent list (trucks)
+        List<RouteRequest.Agent> agents = trucks.stream().map(truck -> {
+            RouteRequest.Agent agent = new RouteRequest.Agent();
+            agent.setStartLocation(new double[]{truck.getStartLatitude(), truck.getStartLongitude()});
+            agent.setEndLocation(new double[]{truck.getEndLatitude(), truck.getEndLongitude()});
+            agent.setPickupCapacity(truck.getPickupCapacity());
+            return agent;
+        }).collect(Collectors.toList());
+
+        // Prepare the job list (bins)
+        List<RouteRequest.Job> jobs = bins.stream().map(bin -> {
+            RouteRequest.Job job = new RouteRequest.Job();
+            job.setLocation(new double[]{bin.getLatitude(), bin.getLongitude()});
+            job.setDuration(300); // Assuming 5 minutes per job
+            job.setPickupAmount(bin.getWasteAmount());
+            return job;
+        }).collect(Collectors.toList());
+
+        routeRequest.setAgents(agents);
+        routeRequest.setJobs(jobs);
+
+        return routeRequest;
+    }
 
     // Mark a route as completed
     public Route completeRoute(Long routeId) {

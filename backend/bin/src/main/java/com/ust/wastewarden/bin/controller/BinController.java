@@ -1,5 +1,6 @@
 package com.ust.wastewarden.bin.controller;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.ust.wastewarden.bin.model.Bin;
 import com.ust.wastewarden.bin.service.BinService;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
         import java.util.List;
 
+
 @RestController
 @RequestMapping("/bins")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BinController {
 
     private final BinService binService;
@@ -39,6 +42,17 @@ public class BinController {
         return ResponseEntity.ok(savedBin);
     }
 
+    @PostMapping("/saveall")
+    public ResponseEntity<List<Bin>> saveallBin(@RequestBody List<Bin> bins) {
+        List<Bin> savedBins = binService.saveAllBins(bins);
+        return ResponseEntity.ok(savedBins);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Bin> updateBin(@RequestBody Bin bin , @PathVariable Long id) {
+        return ResponseEntity.ok(binService.updateBins(bin,id));
+    }
+
 //    bin/{id}?fillLevel=X
     @PutMapping("/{id}")
     public ResponseEntity<Bin> updateBinStatus(@PathVariable Long id, @RequestParam int fillLevel) {
@@ -64,6 +78,22 @@ public class BinController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/full-overflowing")
+    public ResponseEntity<List<Bin>> getFullOrOverflowingBins(){
+        List<Bin> fullAndOverflowingBins = binService.getFullAndOverflowingBins();
+        if (fullAndOverflowingBins != null) {
+            return ResponseEntity.ok(fullAndOverflowingBins);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+//    @Scheduled(cron = "0/40 * * * * *")  // Runs every 3 min
+    @GetMapping("/assign-bins")
+    public void checkAndAssignJobs() {
+        binService.findAndAssignJobs();
     }
 }
 
