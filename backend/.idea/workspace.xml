@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67d85607-fa53-41cf-bd38-06d4564a9701" name="Changes" comment="" />
+    <list default="true" id="67d85607-fa53-41cf-bd38-06d4564a9701" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +23,12 @@
     &quot;assignee&quot;: &quot;antonymaliakkal&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/antonymaliakkal/Capstone-Project.git",
-    "accountId": "d992d6d4-8792-49c0-a7eb-698311db9577"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/antonymaliakkal/Capstone-Project.git&quot;,
+    &quot;accountId&quot;: &quot;d992d6d4-8792-49c0-a7eb-698311db9577&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -34,23 +38,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Bin.executor": "Run",
-    "Application.Collection Log.executor": "Run",
-    "Application.Discovery.executor": "Run",
-    "Application.Issues.executor": "Run",
-    "Application.Routes.executor": "Run",
-    "Application.Truck.executor": "Run",
-    "Application.User.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/285573/Desktop/Capstone_Project/backend",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Bin.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Collection Log.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Discovery.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Issues.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Routes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Truck.executor&quot;: &quot;Run&quot;,
+    &quot;Application.User.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/285573/Desktop/Capstone_Project/backend&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.User">
+}</component>
+  <component name="RunManager" selected="Application.Discovery">
     <configuration name="Bin" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.ust.wastewarden.bin.BinApplication" />
       <module name="bin" />
