@@ -1,0 +1,28 @@
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+    <div class="p-8">
+      <h2 class="text-2xl font-bold mb-4">Bin Collection Data</h2>
+      <form [formGroup]="binForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label for="binId" class="block text-sm font-medium text-gray-700">Bin ID</label>
+          <input type="text" id="binId" formControlName="binId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+        <div>
+          <label for="fillLevel" class="block text-sm font-medium text-gray-700">Fill Level (%)</label>
+          <input type="number" id="fillLevel" formControlName="fillLevel" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        </div>
+        <div>
+          <label for="wasteType" class="block text-sm font-medium text-gray-700">Waste Type</label>
+          <select id="wasteType" formControlName="wasteType" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <option value="general">General Waste</option>
+            <option value="recyclable">Recyclable</option>
+            <option value="organic">Organic</option>
+          </select>
+        </div>
+        <div>
+          <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+          <textarea id="notes" formControlName="notes" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Submit</button>
+      </form>
+    </div>
+  </div>

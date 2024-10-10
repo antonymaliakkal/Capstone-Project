@@ -1,0 +1,81 @@
+<div class="container mx-auto p-6 bg-gray-100 min-h-screen">
+  <h1 class="text-3xl font-bold mb-6 text-black-600  border-blue-200 pb-2">Truck Route Details</h1>
+  @if (truckData) {
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <div class="p-6 space-y-6">
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <h2 class="text-2xl font-semibold mb-3 text-blue-700">Truck Information</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p class="flex items-center">
+              <span class="font-medium text-gray-600 mr-2">Truck ID:</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{ truckData.id ?? 'N/A' }}</span>
+            </p>
+            <p class="flex items-center">
+              <span class="font-medium text-gray-600 mr-2">Truck Number:</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{ truckData.truckNumber ?? 'N/A' }}</span>
+            </p>
+          </div>
+        </div>
+        
+        @if (truckData.assignedRoute) {
+          <div class="bg-green-50 p-4 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-3 text-green-700">Assigned Route</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <p><span class="font-medium text-gray-600">Route ID:</span> {{ truckData.assignedRoute.id ?? 'N/A' }}</p>
+              <p><span class="font-medium text-gray-600">Distance:</span> {{ truckData.assignedRoute.distance ?? 'N/A' }} meters</p>
+              <p><span class="font-medium text-gray-600">Start Time:</span> {{ truckData.assignedRoute.startTime ?? 'N/A' }}</p>
+              <p><span class="font-medium text-gray-600">End Time:</span> {{ truckData.assignedRoute.endTime ?? 'N/A' }}</p>
+              <p><span class="font-medium text-gray-600">Mode:</span> {{ truckData.assignedRoute.mode ?? 'N/A' }}</p>
+            </div>
+          </div>
+          
+          @if (truckData.assignedRoute.actions && truckData.assignedRoute.actions.length > 0) {
+            <div>
+              <h3 class="text-2xl font-semibold mb-4 text-indigo-600">Actions</h3>
+              <div class="overflow-x-auto bg-white rounded-lg shadow">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Time</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Index</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waypoint Index</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    @for (action of truckData.assignedRoute.actions; track action.id) {
+                      <tr class="hover:bg-gray-50 transition-colors duration-200">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ action.id ?? 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <span [ngClass]="{
+                            'bg-green-100 text-green-800': action.type === 'start',
+                            'bg-blue-100 text-blue-800': action.type === 'job',
+                            'bg-red-100 text-red-800': action.type === 'end'
+                          }" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+                            {{ action.type ?? 'N/A' }}
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ action.startTime ?? 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ action.duration ?? 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ action.jobIndex ?? 'N/A' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ action.waypointIndex ?? 'N/A' }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          } @else {
+            <p class="text-gray-600">No actions available for this route.</p>
+          }
+        } @else {
+          <p class="text-gray-600">No assigned route available for this truck.</p>
+        }
+      </div>
+    </div>
+  } @else {
+    <p class="text-xl text-gray-600">Loading truck data...</p>
+  }
+</div>

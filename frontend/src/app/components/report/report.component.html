@@ -1,0 +1,135 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Report Incident / Make Enquiry</h1>
+    
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        What would you like to do?
+      </label>
+      <div>
+        <label class="inline-flex items-center mr-4">
+          <input type="radio" class="form-radio" name="formType" [(ngModel)]="selectedFormType" [value]="FormType.Report">
+          <span class="ml-2">Report an Incident</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="radio" class="form-radio" name="formType" [(ngModel)]="selectedFormType" [value]="FormType.Enquiry">
+          <span class="ml-2">Make an Enquiry</span>
+        </label>
+      </div>
+    </div>
+
+    <div *ngIf="selectedFormType === FormType.Report" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h2 class="text-xl font-bold mb-4">Report an Incident</h2>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="binId">
+          Bin ID
+        </label>
+        <input 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="binId" 
+          type="text" 
+          [(ngModel)]="reportForm.binId"
+          placeholder="Enter Bin ID">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="incidentType">
+          Incident Type
+        </label>
+        <select 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="incidentType" 
+          [(ngModel)]="reportForm.incidentType">
+          <option value="">Select Incident Type</option>
+          <option value="full">Bin is Full</option>
+          <option value="broken">Bin is Broken</option>
+          <option value="missing">Bin is Missing</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+          Description
+        </label>
+        <textarea 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="description" 
+          [(ngModel)]="reportForm.description"
+          placeholder="Describe the incident" 
+          rows="4"></textarea>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+          Upload Image
+        </label>
+        <input 
+          type="file" 
+          id="image" 
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="flex items-center justify-between">
+        <button 
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+          type="button" 
+          >
+          Submit Report
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="selectedFormType === FormType.Enquiry" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h2 class="text-xl font-bold mb-4">Make an Enquiry</h2>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+          Name
+        </label>
+        <input 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="name" 
+          type="text" 
+          [(ngModel)]="enquiryForm.name"
+          placeholder="Your Name">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+          Email
+        </label>
+        <input 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="email" 
+          type="email" 
+          [(ngModel)]="enquiryForm.email"
+          placeholder="Your Email">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="subject">
+          Subject
+        </label>
+        <input 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="subject" 
+          type="text" 
+          [(ngModel)]="enquiryForm.subject"
+          placeholder="Enquiry Subject">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="message">
+          Message
+        </label>
+        <textarea 
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          id="message" 
+          [(ngModel)]="enquiryForm.message"
+          placeholder="Your message" 
+          rows="4"></textarea>
+      </div>
+      <div class="flex items-center justify-between">
+        <button 
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+          type="button" 
+          (click)="submitEnquiry()">
+          Submit Enquiry
+        </button>
+      </div>
+    </div>
+  </div>

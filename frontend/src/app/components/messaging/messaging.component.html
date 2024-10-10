@@ -1,0 +1,55 @@
+<div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-6">Send Notification</h2>
+    
+    <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="recipient">
+          Recipient
+        </label>
+        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                id="recipient" formControlName="recipient">
+          <option value="all">Everyone</option>
+          <option value="worker">Workers Only</option>
+          <option value="resident">Residents Only</option>
+          <option value="individual">Individual Person</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="type">
+          Type
+        </label>
+        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                id="recipient" formControlName="type">
+          <option value="info">Info</option>
+          <option value="warning">Warning</option>
+          <option value="error">Error</option>
+        </select>
+      </div>
+      
+      @if (notificationForm.get('recipient')?.value === 'individual') {
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="individualRecipient">
+            Individual Recipient
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                 id="individualRecipient" type="text" formControlName="individualRecipient" placeholder="Enter recipient name or ID">
+        </div>
+      }
+      
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="message">
+          Message
+        </label>
+        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                  id="message" formControlName="message" rows="4" placeholder="Enter your message"></textarea>
+      </div>
+      
+      <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                type="submit" [disabled]="!notificationForm.valid">
+          Send Notification
+        </button>
+      </div>
+    </form>
+  </div>

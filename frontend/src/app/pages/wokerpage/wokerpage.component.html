@@ -1,0 +1,30 @@
+<div class="flex h-screen">
+    <app-sidebar class="flex-none" (menuItemSelected)="onMenuItemSelected($event)"></app-sidebar>
+    <div class="flex flex-col flex-grow">
+      <app-navbar class="flex-none" [selectedComponent]="selectedComponet"></app-navbar>
+      <main class="flex-grow p-4 bg-gray-100 overflow-auto">
+
+        @switch (selectedComponet) {
+            @case ('Map') {
+                <app-map></app-map>
+            }
+            @case ('Profile') {
+                <app-profile></app-profile>
+            }
+            @case ('Bin Collection') {
+                <app-bin-collection-form></app-bin-collection-form>
+            }
+            @case ('Notification') {
+                <app-notification></app-notification>
+            }
+            @case ('Route List') {
+                <app-route-listing></app-route-listing>
+            }
+            @default {
+                <app-map></app-map>
+            }
+        }
+
+      </main>
+    </div>
+  </div>

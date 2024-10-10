@@ -1,0 +1,290 @@
+<div class="max-w-4xl mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-6">{{ userCreated ? 'Create Truck' : 'Create Worker' }}</h2>
+
+  <!-- User Creation Form -->
+  <div *ngIf="!userCreated" class="space-y-6">
+    <form
+      (ngSubmit)="createUser()"
+      [formGroup] = "userForm"
+      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+    >
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          Username
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          id="username"
+          name="username"
+          formControlName="username"
+          required
+          placeholder="Enter your username..."
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 text-sm font-bold mb-2"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          name="email"
+          required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter your email id..."
+        />
+      </div>
+      <div class="flex">
+        <div class="mb-4 w-full mr-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            Password
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="password"
+            id="password"
+            name="password"
+            formControlName="password"
+            required
+            placeholder="Enter your secret password..."
+          />
+        </div>
+
+        <div class="mb-4 w-full">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm_password">
+            Confirm Password
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            required
+            placeholder="Confirm your secret password..."
+          />
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="mb-4 w-full mr-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
+            First Name
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            id="firstName"
+            name="firstName"
+            formControlName="firstName"
+            required
+            placeholder="Enter your first name..."
+          />
+        </div>
+
+        <div class="mb-4 w-full">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+            Last Name
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            id="lastName"
+            name="lastName"
+            formControlName="lastName"
+            required
+            placeholder="Enter your last name..."
+          />
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="mb-4 w-full mr-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="phoneNumber">
+            Phone Number
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="tel"
+            pattern="[0-9]{10}"
+            id="phoneNumber"
+            name="phoneNumber"
+            formControlName="phoneNumber"
+            required
+            placeholder="Enter your phone number..."
+          />
+        </div>
+
+        <div class="mb-4 w-full">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="location">
+            Location
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            id="location"
+            name="location"
+            formControlName="location"
+            required
+            placeholder="Enter your location..."
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Create User
+      </button>
+    </form>
+  </div>
+
+  <!-- Truck Creation Form -->
+  <div *ngIf="userCreated">
+    <form
+      [formGroup]="truckForm"
+      (ngSubmit)="createTruck()"
+      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+    >
+      <div>
+        <label for="truckNumber" class="block text-gray-700 text-sm font-bold mb-2"
+          >Truck Number</label
+        >
+        <input
+          type="text"
+          id="truckNumber"
+          name="truckNumber"
+          formControlName="truckNumber"
+          required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter the truck number(ex. TRUCK001)"
+        />
+      </div>
+
+      <div>
+        <label for="pickupCapacity" class="block text-gray-700 text-sm font-bold mb-2"
+          >Capacity (tons)</label
+        >
+        <input
+          type="number"
+          id="pickupCapacity"
+          name="pickupCapacity"
+          formControlName="pickupCapacity"
+          required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+
+      <div>
+        <label for="currentLocation" class="block text-gray-700 text-sm font-bold mb-2"
+          >Truck Location</label
+        >
+        <input
+          type="text"
+          id="currentLocation"
+          name="currentLocation"
+          formControlName="currentLocation"
+          required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter the current location..."
+        />
+      </div>
+
+      <div class="flex">
+        <div class="w-full mr-5">
+          <label
+            for="startLatitude"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >Start Latitude</label
+          >
+          <input
+            type="number"
+            id="startLatitude"
+            name="startLatitude"
+            formControlName="startLatitude"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter the starting latitude.."
+          />
+        </div>
+
+        <div class="w-full">
+          <label
+            for="startLongitude"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >Start Longitude</label
+          >
+          <input
+            type="number"
+            id="startLongitude"
+            name="startLongitude"
+            formControlName="startLongitude"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter the starting longitude"
+          />
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="w-full mr-4">
+          <label
+            for="endLatitude"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >End Latitude</label
+          >
+          <input
+            type="number"
+            id="endLatitude"
+            name="endLatitude"
+            formControlName="endLatitude"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter the ending latitude.."
+          />
+        </div>
+
+        <div class="w-full">
+          <label
+            for="endLongitude"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >End Longitude</label
+          >
+          <input
+            type="number"
+            id="endLongitude"
+            name="endLongitude"
+            formControlName="endLongitude"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter the ending longitude"
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Create Truck
+      </button>
+    </form>
+  </div>
+
+  <!-- Success Messages -->
+  <div
+    *ngIf="userCreated"
+    class="mt-4 text-sm text-green-600 bg-green-100 rounded-md p-3"
+  >
+    User created successfully!
+  </div>
+  <div
+    *ngIf="truckCreated"
+    class="mt-4 text-sm text-green-600 bg-green-100 rounded-md p-3"
+  >
+    Truck created successfully!
+  </div>
+</div>

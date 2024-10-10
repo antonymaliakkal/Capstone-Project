@@ -1,0 +1,84 @@
+<div class="max-w-4xl mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-6">Bin Management</h2>
+  
+  <form [formGroup]="binForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="location">
+        Location
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="location" type="text" formControlName="location" placeholder="Enter bin location">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="latitude">
+        Latitude
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="latitude" type="number" formControlName="latitude" placeholder="Enter latitude">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="longitude">
+        Longitude
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="longitude" type="number" formControlName="longitude" placeholder="Enter longitude">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="wasteAmount">
+        Waste Amount
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="wasteAmount" type="number" formControlName="wasteAmount" placeholder="Enter waste amount">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
+        Status
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="status" type="text" formControlName="status" placeholder="Enter bin status">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="fillLevel">
+        Fill Level
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             id="fillLevel" type="text" formControlName="fillLevel" placeholder="Enter fill level">
+    </div>
+    <div class="flex items-center justify-between">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit">
+        {{ editingBinId ? 'Update Bin' : 'Create Bin' }}
+      </button>
+      @if (editingBinId) {
+        <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="cancelEdit()">
+          Cancel Edit
+        </button>
+      }
+    </div>
+  </form>
+  
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
+    <h3 class="text-xl font-bold mb-4">Bin List</h3>
+    <ul class="divide-y divide-gray-200">
+      @for (bin of bins; track bin.id) {
+        <li class="py-4 flex justify-between items-center">
+          <div>
+            <p class="text-sm font-medium text-gray-900">Location: {{ bin.location }}</p>
+            <p class="text-sm text-gray-500">Coordinates: {{ bin.latitude }}, {{ bin.longitude }}</p>
+            <p class="text-sm text-gray-500">Waste Amount: {{ bin.wasteAmount }}</p>
+            <p class="text-sm text-gray-500">Status: {{ bin.status }}</p>
+            <p class="text-sm text-gray-500">Fill Level: {{ bin.fillLevel }}</p>
+            <p class="text-sm text-gray-500">Created At: {{ bin.createdAt }}</p>
+            <p class="text-sm text-gray-500">Last Collection: {{ bin.lastCollectionDate }}</p>
+            <p class="text-sm text-gray-500">Next Collection: {{ bin.nextCollectionDate }}</p>
+          </div>
+          <div>
+            <button class="text-indigo-600 hover:text-indigo-900 mr-2" (click)="editBin(bin)">Edit</button>
+            <button class="text-red-600 hover:text-red-900" (click)="deleteBin(bin.id)">Delete</button>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

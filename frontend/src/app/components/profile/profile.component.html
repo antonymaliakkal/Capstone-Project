@@ -1,0 +1,43 @@
+<div class="bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto">
+  <div class="flex items-center space-x-6 mb-6">
+    <img [src]="user.photoUrl" alt="User photo" class="w-24 h-24 rounded-full object-cover">
+    <div>
+      <h2 class="text-2xl font-bold">{{ user.firstName }} {{ user.lastName }}</h2>
+      <p class="text-gray-600">{{ user.username }}</p>
+      <p class="text-gray-600">{{ user.location }}</p>
+    </div>
+  </div>
+  
+  <div class="mb-6">
+    <h3 class="text-xl font-semibold mb-2">User Information</h3>
+    <p><strong>First Name:</strong> {{ user.firstName }}</p>
+    <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Location:</strong> {{ user.location }}</p>
+  </div>
+  
+  <div>
+    <h3 class="text-xl font-semibold mb-2">Change Password</h3>
+    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label for="currentPassword" class="block text-sm font-medium text-gray-700">Current Password</label>
+        <input type="password" id="currentPassword" formControlName="currentPassword" 
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      </div>
+      <div>
+        <label for="newPassword" class="block text-sm font-medium text-gray-700">New Password</label>
+        <input type="password" id="newPassword" formControlName="newPassword" 
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      </div>
+      <div>
+        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" 
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      </div>
+      <button type="submit" [disabled]="!passwordForm.valid" 
+              class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50">
+        Change Password
+      </button>
+    </form>
+  </div>
+</div>
