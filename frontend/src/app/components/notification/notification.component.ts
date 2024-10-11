@@ -33,13 +33,5 @@ export class NotificationsComponent implements OnInit {
     )
 
     console.log(this.notifications)
-
-    // Mock data - replace with actual data fetching logic
-    // this.notifications = [
-    //   { id: 1, message: 'New route assigned', type: 'info', timestamp: new Date() },
-    //   { id: 2, message: 'Bin #1234 is full', type: 'warning', timestamp: new Date(Date.now() - 3600000) },
-    //   { id: 3, message: 'System maintenance scheduled', type: 'info', timestamp: new Date(Date.now() - 7200000) },
-    //   { id: 4, message: 'Failed to update bin status', type: 'error', timestamp: new Date(Date.now() - 10800000) },
-    // ];
   }
 }

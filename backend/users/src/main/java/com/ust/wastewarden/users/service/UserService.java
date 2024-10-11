@@ -3,11 +3,13 @@ package com.ust.wastewarden.users.service;
 import com.ust.wastewarden.users.dto.UserDto;
 import com.ust.wastewarden.users.exception.UserNotFoundException;
 import com.ust.wastewarden.users.mapper.UserMapper;
+import com.ust.wastewarden.users.model.Role;
 import com.ust.wastewarden.users.model.User;
 import com.ust.wastewarden.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,19 @@ public class UserService implements UserServiceImpl {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> getWorkers() {
+        List<User> workers = new ArrayList<>();
+
+        List<User> users = userRepository.findAll();
+        for(User user: users){
+            if(user.getRole() == Role.WORKER){
+                workers.add(user);
+            }
+        }
+        return workers;
     }
 
     @Override

@@ -25,6 +25,7 @@ public class User {
     private String password;
     private String email;
     private String location;
+    private String phoneNumber = "1234567890";
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Notifications> notifications;

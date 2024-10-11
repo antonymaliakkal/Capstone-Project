@@ -4,6 +4,7 @@ import { UserpageComponent } from './pages/userpage/userpage.component';
 import { AdminpageComponent } from './pages/adminpage/adminpage.component';
 import { WokerpageComponent } from './pages/wokerpage/wokerpage.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
+import { EducationComponent } from './components/education/education.component';
 
 export const routes: Routes = [
     { path: 'home' , component: HomepageComponent },
@@ -24,6 +25,10 @@ export const routes: Routes = [
         component: UserpageComponent,
         canActivate: [authGuardGuard],
         data : { roles: ['RESIDENT'] }
+     },
+     {
+        path : 'education',
+        component: EducationComponent
      }
 ];
  

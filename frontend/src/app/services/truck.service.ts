@@ -24,4 +24,10 @@ export class TruckService {
     })
   }
 
+  getTruck(): Observable<any> {
+    return this.http.get(`${this.apiUrl}` , {
+      headers: new HttpHeaders({ 'Content-Type' : 'application/json'})
+    })
+  }
+
 }

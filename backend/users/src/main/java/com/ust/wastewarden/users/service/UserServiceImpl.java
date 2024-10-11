@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface UserServiceImpl {
 
     public List<User> getAllUsers();
+    public List<User> getWorkers();
     public Optional<User> getUserById(Long id);
     public User createUser(UserDto user);
     public void deleteUser(Long id);

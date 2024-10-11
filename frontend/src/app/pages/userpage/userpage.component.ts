@@ -7,11 +7,12 @@ import { ReportComponent } from "../../components/report/report.component";
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from "../../components/profile/profile.component";
 import { NotificationsComponent } from "../../components/notification/notification.component";
+import { EducationComponent } from "../../components/education/education.component";
 
 @Component({
   selector: 'app-userpage',
   standalone: true,
-  imports: [HeaderComponent, SidebarComponent, NavbarComponent, MapComponent, ReportComponent, CommonModule, ProfileComponent, NotificationsComponent],
+  imports: [HeaderComponent, SidebarComponent, NavbarComponent, MapComponent, ReportComponent, CommonModule, ProfileComponent, NotificationsComponent, EducationComponent],
   templateUrl: './userpage.component.html',
   styleUrl: './userpage.component.css'
 })

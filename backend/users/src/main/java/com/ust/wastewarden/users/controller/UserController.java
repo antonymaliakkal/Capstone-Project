@@ -32,6 +32,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    //Get all workers
+    @GetMapping("/workers")
+    public List<User> getWorkers() {
+        return userService.getWorkers();
+    }
+
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {

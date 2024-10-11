@@ -287,4 +287,55 @@
   >
     Truck created successfully!
   </div>
+
+     <!-- Workers List -->
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mt-8">
+    <h3 class="text-xl font-bold mb-4">Workers List</h3>
+    <ul class="divide-y divide-gray-200">
+      @for (worker of workers; track worker.id) {
+        <li class="py-4 flex justify-between items-center">
+          <div>
+            <p class="text-sm font-medium text-gray-900">Name: {{ worker.firstName }} {{ worker.lastName }}</p>
+            <p class="text-sm text-gray-500">Username: {{ worker.username }}</p>
+            <p class="text-sm text-gray-500">Email: {{ worker.email }}</p>
+            <p class="text-sm text-gray-500">Phone: {{ worker.phoneNumber }}</p>
+            <p class="text-sm text-gray-500">Location: {{ worker.location }}</p>
+            <p class="text-sm text-gray-500">Role: {{ worker.role }}</p>
+          </div>
+          <div>
+            <button class="text-indigo-600 hover:text-indigo-900 mr-2" (click)="editUser(worker)">Edit</button>
+            <button class="text-red-600 hover:text-red-900" (click)="deleteUser(worker.id)">Delete</button>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Trucks List -->
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mt-8">
+    <h3 class="text-xl font-bold mb-4">Trucks List</h3>
+    <ul class="divide-y divide-gray-200">
+      @for (truck of trucks; track truck.id) {
+        <li class="py-4 flex justify-between items-center">
+          <div>
+            <p class="text-sm font-medium text-gray-900">Truck Number: {{ truck.truckNumber }}</p>
+            <p class="text-sm text-gray-500">Pickup Capacity: {{ truck.pickupCapacity }} tons</p>
+            <p class="text-sm text-gray-500">Current Location: {{ truck.currentLocation }}</p>
+            <p class="text-sm text-gray-500">Start Coordinates: {{ truck.startLatitude }}, {{ truck.startLongitude }}</p>
+            <p class="text-sm text-gray-500">End Coordinates: {{ truck.endLatitude }}, {{ truck.endLongitude }}</p>
+            <p class="text-sm text-gray-500">Assigned User ID: {{ truck.userId }}</p>
+          </div>
+          <div>
+            <button class="text-indigo-600 hover:text-indigo-900 mr-2" (click)="editTruck(truck)">Edit</button>
+            <button class="text-red-600 hover:text-red-900" (click)="deleteTruck(truck.id)">Delete</button>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
 </div>
+
+
+
+
+

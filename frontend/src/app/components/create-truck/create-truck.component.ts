@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { UserserviceService } from '../../services/userservice.service';
@@ -13,12 +13,17 @@ import { TruckService } from '../../services/truck.service';
   templateUrl: './create-truck.component.html',
   styleUrl: './create-truck.component.css'
 })
-export class CreateTruckComponent {
+export class CreateTruckComponent implements OnInit{
 
   user = { name: '', email: '' };
   truck = { model: '', year: 0, capacity: 0 };
   userCreated = false;
   truckCreated = false;
+
+  workers:any[] = [];
+  trucks:any[] = [];
+  editingUser: User | null = null;
+  editingTruck: Truck | null = null;
 
   userId = '';
 
@@ -47,6 +52,10 @@ export class CreateTruckComponent {
       endLongitude : 0
     })
 
+  }
+  ngOnInit(): void {
+    this.getWorkers();
+    this.getTrucks();
   }
 
   createUser() {
@@ -88,4 +97,107 @@ export class CreateTruckComponent {
 
   }
 
+
+  getWorkers() {
+    this.userService.getWorkers().subscribe(
+      (response) => {
+        console.log(response);
+        this.workers=response;
+      }
+    )
+  }
+
+  getTrucks() {
+    this.truckService.getTruck().subscribe(
+      (response) => {
+        console.log(response);
+        this.trucks = response;
+      }
+    )
+  }
+
+
+  editUser(user: User) {
+    this.editingUser = user;
+    this.userForm.patchValue(user);
+  }
+
+  updateUser() {
+    if (this.userForm.valid && this.editingUser) {
+      const updatedUser: User = { ...this.editingUser, ...this.userForm.value };
+      console.log('Updating User')
+      // this.userService.updateUser(updatedUser).subscribe(
+      //   (response) => {
+      //     console.log(response);
+      //     this.getWorkers();
+      //     this.resetUserForm();
+      //   },
+      //   (error) => {
+      //     console.error('Error updating user', error);
+      //   }
+      // );
+    }
+  }
+
+  deleteUser(userId: string) {
+    console.log('Delte User')
+    // this.userService.deleteUser(userId).subscribe(
+    //   (response) => {
+    //     console.log(response);
+    //     this.getWorkers();
+    //   },
+    //   (error) => {
+    //     console.error('Error deleting user', error);
+    //   }
+    // );
+  }
+
+  editTruck(truck: Truck) {
+    this.editingTruck = truck;
+    this.truckForm.patchValue(truck);
+  }
+
+  updateTruck() {
+    if (this.truckForm.valid && this.editingTruck) {
+      const updatedTruck: Truck = { ...this.editingTruck, ...this.truckForm.value };
+      console.log('Update Truck')
+      // this.truckService.updateTruck(updatedTruck).subscribe(
+      //   (response) => {
+      //     console.log(response);
+      //     this.getTrucks();
+      //     this.resetTruckForm();
+      //   },
+      //   (error) => {
+      //     console.error('Error updating truck', error);
+      //   }
+      // );
+    }
+  }
+
+  deleteTruck(truckId: string) {
+    
+    console.log('Delete Truck')
+    // this.truckService.deleteTruck(truckId).subscribe(
+    //   (response) => {
+    //     console.log(response);
+    //     this.getTrucks();
+    //   },
+    //   (error) => {
+    //     console.error('Error deleting truck', error);
+    //   }
+    // );
+  }
+
+  resetUserForm() {
+    this.userForm.reset({ role: 'WORKER' });
+    this.editingUser = null;
+  }
+
+  resetTruckForm() {
+    this.truckForm.reset();
+    this.editingTruck = null;
+  }
 }
+
+
+

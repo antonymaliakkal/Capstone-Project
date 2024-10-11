@@ -32,6 +32,13 @@ export class UserserviceService {
     });
   }
 
+  getWorkers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/workers` , {
+      headers : new HttpHeaders({'Content-Type' : 'application/json'})
+    })
+  }
+
+
   getNotification(): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/notifications/${this.sessionService.getToken('id')}`,
