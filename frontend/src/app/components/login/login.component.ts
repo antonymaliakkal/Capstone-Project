@@ -10,64 +10,71 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgIf , ReactiveFormsModule , CommonModule],
+  imports: [ReactiveFormsModule , CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
+
+  
   data = [];
   
   private formBuilder = inject(FormBuilder);
-  registrationForm: FormGroup = this.formBuilder.group({
-    username : '',
+  loginForm: FormGroup = this.formBuilder.group({
     email : '',
     password : '',
-    firstName : '',
-    lastName : '',
-    phoneNumber : '',
-    location : '',
-    role : ''
   });
 
 
   constructor(public modalService:ModalService , private userService:UserserviceService , private sessionService:SessionService , private router: Router) {
    }
-  
-  onSubmit() {
-    if (this.registrationForm.valid) {
-        const user: User = this.registrationForm.value;
 
-        this.userService.createUser(user).subscribe(
-            (response) => {
-                console.log('User registered successfully!', response);
-                this.sessionService.login(response.username , response.firstName , response.role , response.lastName , response.location , response.userid)
-                if(response.role === 'ADMIN') {
-                  this.router.navigate(['/admin'])
-                }
-                else if(response.role === 'RESIDENT') {
-                  this.router.navigate(['/resident'])
-                }
-            },
-            (error) => {
-                console.error('Error registering user', error);
+  onSubmit() {
+    if (this.loginForm.valid) {
+        const user: User = this.loginForm.value;
+
+        this.userService.loginUser(user.email).subscribe(
+          (response) => {
+            console.log(response);
+            if(response.password === user.password){
+              this.sessionService.login(response.username , response.firstName , response.role , response.lastName , response.location , response.userid)
+              if(response.role === 'ADMIN') {
+                          this.router.navigate(['/admin'])
+                        }
+                        else if(response.role === 'RESIDENT') {
+                          this.router.navigate(['/resident'])
+                        }
+                        else if(response.role === 'WORKER') {
+                          this.router.navigate(['/worker'])
+                        }
+                    }
+                  },
+                    (error) => {
+                        console.error('Error registering user', error);
+                    }
+                  );
             }
-        );
-    }
-}
+          }
+        
+
+
 
   createuser(): void {
       console.log('clicked')
       console.log(this.data)
   }
 
-  openSignup() {
-    this.modalService.openLogin();
-  }
-
-  closeModal() {
+  openSignup(event: Event) {
+    event.stopPropagation();
     this.modalService.closeModals();
+    this.modalService.openSignup();
   }
 
+  closeModal(event: MouseEvent) {
+    if ((event.target as HTMLElement).classList.contains('fixed')) {
+      this.modalService.closeModals();
+    }
+  }
 
 }

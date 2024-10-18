@@ -5,6 +5,7 @@ import { AdminpageComponent } from './pages/adminpage/adminpage.component';
 import { WokerpageComponent } from './pages/wokerpage/wokerpage.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
 import { EducationComponent } from './components/education/education.component';
+import { LoadingAnimationComponent } from './components/loading-animation/loading-animation.component';
 
 export const routes: Routes = [
     { path: 'home' , component: HomepageComponent },
@@ -28,7 +29,7 @@ export const routes: Routes = [
      },
      {
         path : 'education',
-        component: EducationComponent
+        component: LoadingAnimationComponent
      }
 ];
- 
+  

@@ -1,17 +1,11 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-
-  // isModalOpen = new BehaviorSubject<boolean>(false);
-  // isModalOpen$ = this.isModalOpen.asObservable();
-  
-  // status = new BehaviorSubject<boolean>(true);
-  // status$ = this.status.asObservable();
-
 
   private showLoginModal = new BehaviorSubject<boolean>(false);
   private showSignupModal = new BehaviorSubject<boolean>(false);
@@ -19,17 +13,27 @@ export class ModalService {
   showLogin$ = this.showLoginModal.asObservable();
   showSignup$ = this.showSignupModal.asObservable();
 
+
+  constructor(private loadingService:LoadingService) {  }
+
   openLogin() {
     console.log('started openLogin')
-    this.showLoginModal.next(true);
-    this.showSignupModal.next(false); // Close signup if it's open
-    console.log('started openLogin')
+    this.loadingService.show();
+
+    setTimeout( () => {
+      this.showSignupModal.next(false); // Close signup if it's open
+      this.showLoginModal.next(true);
+      this.loadingService.hide();
+      console.log('closed openLogin')
+    } , 500 )
+
+  
   }
 
   openSignup() {
     console.log('started openSignup')
-    this.showSignupModal.next(true);
     this.showLoginModal.next(false); // Close login if it's open
+    this.showSignupModal.next(true);
     console.log('closed openSignup')
   }
 
@@ -37,25 +41,6 @@ export class ModalService {
     this.showLoginModal.next(false);
     this.showSignupModal.next(false);
   }
-
-
-  // openModal() {
-  //   console.log('MODAL')
-  //   this.isModalOpen.next(true);
-  // }
-
-  // closeModal() {
-  //   this.isModalOpen.next(false);
-  // }
-
-  // getStatus() {
-  //   return this.status.value;
-  // }
-
-  // changeStatus() {
-  //   console.log(this.status.value)
-  //   this.status.next(!this.status.value);
-  // }
 
 
 }

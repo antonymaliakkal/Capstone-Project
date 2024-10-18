@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="67d85607-fa53-41cf-bd38-06d4564a9701" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main/java/com/ust/wastewarden/users/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/angular.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,26 +37,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Bin.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Collection Log.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Discovery.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Issues.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Routes.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Truck.executor&quot;: &quot;Run&quot;,
-    &quot;Application.User.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/285573/Desktop/Capstone_Project/backend&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Bin.executor": "Run",
+    "Application.Collection Log.executor": "Run",
+    "Application.Discovery.executor": "Run",
+    "Application.Issues.executor": "Run",
+    "Application.Routes.executor": "Run",
+    "Application.Truck.executor": "Run",
+    "Application.User.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/285573/Desktop/Capstone-Project/backend",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}</component>
-  <component name="RunManager" selected="Application.User">
+}]]></component>
+  <component name="RunManager" selected="Application.Bin">
     <configuration name="Bin" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.ust.wastewarden.bin.BinApplication" />
       <module name="bin" />
